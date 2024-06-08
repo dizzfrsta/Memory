@@ -10,19 +10,19 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Beyondmem
+namespace MemoryCheat
 {
-	#region BeyondMem
-	public class HuongDuong
+	#region Memory_Cheat_For_Free_Fire_In_C#
+	public class EXTERNAL_COPORATIONS
 	{
 		[DllImport("kernel32.dll")]
-		private static extern void GetSystemInfo(out HuongDuong.SYSTEM_INFO lpSystemInfo);
+		private static extern void GetSystemInfo(out EXTERNAL_COPORATIONS.SYSTEM_INFO lpSystemInfo);
 		[DllImport("kernel32.dll")]
 		public static extern IntPtr OpenProcess(uint dwDesiredAccess, bool bInheritHandle, int dwProcessId);
 		[DllImport("kernel32")]
 		public static extern bool IsWow64Process(IntPtr hProcess, out bool lpSystemInfo);
 		[DllImport("kernel32.dll")]
-		private static extern bool VirtualProtectEx(IntPtr hProcess, UIntPtr lpAddress, IntPtr dwSize, HuongDuong.MemoryProtection flNewProtect, out HuongDuong.MemoryProtection lpflOldProtect);
+		private static extern bool VirtualProtectEx(IntPtr hProcess, UIntPtr lpAddress, IntPtr dwSize, EXTERNAL_COPORATIONS.MemoryProtection flNewProtect, out EXTERNAL_COPORATIONS.MemoryProtection lpflOldProtect);
 		[DllImport("kernel32.dll")]
 		private static extern bool WriteProcessMemory(IntPtr hProcess, UIntPtr lpBaseAddress, byte[] lpBuffer, UIntPtr nSize, IntPtr lpNumberOfBytesWritten);
 		[DllImport("kernel32.dll")]
@@ -30,9 +30,9 @@ namespace Beyondmem
 		[DllImport("kernel32.dll")]
 		public static extern int CloseHandle(IntPtr hObject);
 		[DllImport("kernel32.dll", EntryPoint = "VirtualQueryEx")]
-		public static extern UIntPtr Native_VirtualQueryEx(IntPtr hProcess, UIntPtr lpAddress, out HuongDuong.MEMORY_BASIC_INFORMATION64 lpBuffer, UIntPtr dwLength);
+		public static extern UIntPtr Native_VirtualQueryEx(IntPtr hProcess, UIntPtr lpAddress, out EXTERNAL_COPORATIONS.MEMORY_BASIC_INFORMATION64 lpBuffer, UIntPtr dwLength);
 		[DllImport("kernel32.dll", EntryPoint = "VirtualQueryEx")]
-		public static extern UIntPtr Native_VirtualQueryEx(IntPtr hProcess, UIntPtr lpAddress, out HuongDuong.MEMORY_BASIC_INFORMATION32 lpBuffer, UIntPtr dwLength);
+		public static extern UIntPtr Native_VirtualQueryEx(IntPtr hProcess, UIntPtr lpAddress, out EXTERNAL_COPORATIONS.MEMORY_BASIC_INFORMATION32 lpBuffer, UIntPtr dwLength);
 		[DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
 		private static extern uint GetPrivateProfileString(string lpAppName, string lpKeyName, string lpDefault, StringBuilder lpReturnedString, uint nSize, string lpFileName);
 		[DllImport("kernel32.dll")]
@@ -43,7 +43,7 @@ namespace Beyondmem
 			bool flag = file != "";
 			if (flag)
 			{
-				uint privateProfileString = HuongDuong.GetPrivateProfileString("codes", name, "", stringBuilder, (uint)stringBuilder.Capacity, file);
+				uint privateProfileString = EXTERNAL_COPORATIONS.GetPrivateProfileString("codes", name, "", stringBuilder, (uint)stringBuilder.Capacity, file);
 			}
 			else
 			{
@@ -52,11 +52,11 @@ namespace Beyondmem
 			return stringBuilder.ToString();
 		}
 
-        public byte[] AhReadMeFucker(string code, long length, string file = "")
+        public byte[] ReadMemory(string code, long length, string file = "")
         {
             byte[] array = new byte[length];
             UIntPtr code2 = this.GetCode(code, file, 8);
-            bool flag = !HuongDuong.ReadProcessMemory(this.pHandle, code2, array, (UIntPtr)(checked((ulong)length)), IntPtr.Zero);
+            bool flag = !EXTERNAL_COPORATIONS.ReadProcessMemory(this.pHandle, code2, array, (UIntPtr)(checked((ulong)length)), IntPtr.Zero);
             byte[] result;
             if (flag)
             {
@@ -117,8 +117,8 @@ namespace Beyondmem
 				{
 					aobPattern[j] = ((byte)(Convert.ToByte(array[j], 16) & mask[j]));
 				}
-                HuongDuong.SYSTEM_INFO system_INFO = default(HuongDuong.SYSTEM_INFO);
-				HuongDuong.GetSystemInfo(out system_INFO);
+                EXTERNAL_COPORATIONS.SYSTEM_INFO system_INFO = default(EXTERNAL_COPORATIONS.SYSTEM_INFO);
+                EXTERNAL_COPORATIONS.GetSystemInfo(out system_INFO);
 				UIntPtr minimumApplicationAddress = system_INFO.minimumApplicationAddress;
 				UIntPtr maximumApplicationAddress = system_INFO.maximumApplicationAddress;
 				bool flag4 = start < (long)minimumApplicationAddress.ToUInt64();
@@ -142,7 +142,7 @@ namespace Beyondmem
 					")"
 				}));
 				UIntPtr uintPtr = new UIntPtr((ulong)start);
-                HuongDuong.MEMORY_BASIC_INFORMATION memory_BASIC_INFORMATION = default(HuongDuong.MEMORY_BASIC_INFORMATION);
+                EXTERNAL_COPORATIONS.MEMORY_BASIC_INFORMATION memory_BASIC_INFORMATION = default(EXTERNAL_COPORATIONS.MEMORY_BASIC_INFORMATION);
 				while (this.VirtualQueryEx(this.pHandle, uintPtr, out memory_BASIC_INFORMATION).ToUInt64() != 0UL && uintPtr.ToUInt64() < (ulong)end && uintPtr.ToUInt64() + (ulong)memory_BASIC_INFORMATION.RegionSize > uintPtr.ToUInt64())
 				{
 					bool flag6 = memory_BASIC_INFORMATION.State == 4096U;
@@ -229,7 +229,7 @@ namespace Beyondmem
 			bool flag = false;
 			if (!flag)
 			{
-                HuongDuong.CloseHandle(this.pHandle);
+                EXTERNAL_COPORATIONS.CloseHandle(this.pHandle);
 				this.theProc = null;
 			}
 		}
@@ -254,7 +254,7 @@ namespace Beyondmem
 			}
 			IntPtr intPtr = Marshal.AllocHGlobal((int)item.RegionSize);
 			ulong num;
-            HuongDuong.ReadProcessMemory(this.pHandle, item.CurrentBaseAddress, intPtr, (UIntPtr)((ulong)item.RegionSize), out num);
+            EXTERNAL_COPORATIONS.ReadProcessMemory(this.pHandle, item.CurrentBaseAddress, intPtr, (UIntPtr)((ulong)item.RegionSize), out num);
 			int num2 = 0 - aobPattern.Length;
 			List<long> list = new List<long>();
 			do
@@ -308,14 +308,14 @@ namespace Beyondmem
 			}
 			return result;
 		}
-		public UIntPtr VirtualQueryEx(IntPtr hProcess, UIntPtr lpAddress, out HuongDuong.MEMORY_BASIC_INFORMATION lpBuffer)
+		public UIntPtr VirtualQueryEx(IntPtr hProcess, UIntPtr lpAddress, out EXTERNAL_COPORATIONS.MEMORY_BASIC_INFORMATION lpBuffer)
 		{
 			bool flag = this.Is64Bit || IntPtr.Size == 8;
 			UIntPtr result;
 			if (flag)
 			{
-                HuongDuong.MEMORY_BASIC_INFORMATION64 memory_BASIC_INFORMATION = default(HuongDuong.MEMORY_BASIC_INFORMATION64);
-				UIntPtr uintPtr = HuongDuong.Native_VirtualQueryEx(hProcess, lpAddress, out memory_BASIC_INFORMATION, new UIntPtr((uint)Marshal.SizeOf(memory_BASIC_INFORMATION)));
+                EXTERNAL_COPORATIONS.MEMORY_BASIC_INFORMATION64 memory_BASIC_INFORMATION = default(EXTERNAL_COPORATIONS.MEMORY_BASIC_INFORMATION64);
+				UIntPtr uintPtr = EXTERNAL_COPORATIONS.Native_VirtualQueryEx(hProcess, lpAddress, out memory_BASIC_INFORMATION, new UIntPtr((uint)Marshal.SizeOf(memory_BASIC_INFORMATION)));
 				lpBuffer.BaseAddress = memory_BASIC_INFORMATION.BaseAddress;
 				lpBuffer.AllocationBase = memory_BASIC_INFORMATION.AllocationBase;
 				lpBuffer.AllocationProtect = memory_BASIC_INFORMATION.AllocationProtect;
@@ -327,8 +327,8 @@ namespace Beyondmem
 			}
 			else
 			{
-                HuongDuong.MEMORY_BASIC_INFORMATION32 memory_BASIC_INFORMATION2 = default(HuongDuong.MEMORY_BASIC_INFORMATION32);
-				UIntPtr uintPtr = HuongDuong.Native_VirtualQueryEx(hProcess, lpAddress, out memory_BASIC_INFORMATION2, new UIntPtr((uint)Marshal.SizeOf(memory_BASIC_INFORMATION2)));
+                EXTERNAL_COPORATIONS.MEMORY_BASIC_INFORMATION32 memory_BASIC_INFORMATION2 = default(EXTERNAL_COPORATIONS.MEMORY_BASIC_INFORMATION32);
+				UIntPtr uintPtr = EXTERNAL_COPORATIONS.Native_VirtualQueryEx(hProcess, lpAddress, out memory_BASIC_INFORMATION2, new UIntPtr((uint)Marshal.SizeOf(memory_BASIC_INFORMATION2)));
 				lpBuffer.BaseAddress = memory_BASIC_INFORMATION2.BaseAddress;
 				lpBuffer.AllocationBase = memory_BASIC_INFORMATION2.AllocationBase;
 				lpBuffer.AllocationProtect = memory_BASIC_INFORMATION2.AllocationProtect;
@@ -340,7 +340,7 @@ namespace Beyondmem
 			}
 			return result;
 		}
-		public static void notify(string message)
+		public static void Notification(string message)
 		{
 			Process.Start(new ProcessStartInfo("cmd.exe", $"/c start cmd /C \"color b && title Error && echo {message} && timeout /t 5\"")
 			{
@@ -424,7 +424,7 @@ namespace Beyondmem
 						bool flag9 = text.Contains("base") || text.Contains("main");
 						if (flag9)
 						{
-							HuongDuong.ReadProcessMemory(this.pHandle, (UIntPtr)((ulong)((long)this.mainModule.BaseAddress + array4[0])), array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
+                            EXTERNAL_COPORATIONS.ReadProcessMemory(this.pHandle, (UIntPtr)((ulong)((long)this.mainModule.BaseAddress + array4[0])), array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
 						}
 						else
 						{
@@ -453,11 +453,11 @@ namespace Beyondmem
 										Debug.WriteLine("Modules: " + string.Join<KeyValuePair<string, IntPtr>>(",", this.modules));
 									}
 								}
-								HuongDuong.ReadProcessMemory(this.pHandle, (UIntPtr)((ulong)((long)value + array4[0])), array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
+                                EXTERNAL_COPORATIONS.ReadProcessMemory(this.pHandle, (UIntPtr)((ulong)((long)value + array4[0])), array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
 							}
 							else
 							{
-								HuongDuong.ReadProcessMemory(this.pHandle, (UIntPtr)((ulong)array4[0]), array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
+                                EXTERNAL_COPORATIONS.ReadProcessMemory(this.pHandle, (UIntPtr)((ulong)array4[0]), array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
 							}
 						}
 						long num2 = BitConverter.ToInt64(array, 0);
@@ -465,7 +465,7 @@ namespace Beyondmem
 						for (int j = 1; j < array4.Length; j++)
 						{
 							uintPtr = new UIntPtr(Convert.ToUInt64(num2 + array4[j]));
-							HuongDuong.ReadProcessMemory(this.pHandle, uintPtr, array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
+                            EXTERNAL_COPORATIONS.ReadProcessMemory(this.pHandle, uintPtr, array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
 							num2 = BitConverter.ToInt64(array, 0);
 						}
 						result = uintPtr;
@@ -611,7 +611,7 @@ namespace Beyondmem
 							bool flag10 = text.Contains("base") || text.Contains("main");
 							if (flag10)
 							{
-                                HuongDuong.ReadProcessMemory(this.pHandle, (UIntPtr)((ulong)((long)((int)this.mainModule.BaseAddress + array4[0]))), array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
+                                EXTERNAL_COPORATIONS.ReadProcessMemory(this.pHandle, (UIntPtr)((ulong)((long)((int)this.mainModule.BaseAddress + array4[0]))), array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
 							}
 							else
 							{
@@ -646,11 +646,11 @@ namespace Beyondmem
 											Debug.WriteLine("Modules: " + string.Join<KeyValuePair<string, IntPtr>>(",", this.modules));
 										}
 									}
-                                    HuongDuong.ReadProcessMemory(this.pHandle, (UIntPtr)((ulong)((long)((int)value + array4[0]))), array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
+                                    EXTERNAL_COPORATIONS.ReadProcessMemory(this.pHandle, (UIntPtr)((ulong)((long)((int)value + array4[0]))), array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
 								}
 								else
 								{
-                                    HuongDuong.ReadProcessMemory(this.pHandle, (UIntPtr)((ulong)((long)array4[0])), array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
+                                    EXTERNAL_COPORATIONS.ReadProcessMemory(this.pHandle, (UIntPtr)((ulong)((long)array4[0])), array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
 								}
 							}
 							uint num2 = BitConverter.ToUInt32(array, 0);
@@ -658,7 +658,7 @@ namespace Beyondmem
 							for (int j = 1; j < array4.Length; j++)
 							{
 								uintPtr = new UIntPtr(Convert.ToUInt32((long)((ulong)num2 + (ulong)((long)array4[j]))));
-                                HuongDuong.ReadProcessMemory(this.pHandle, uintPtr, array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
+                                EXTERNAL_COPORATIONS.ReadProcessMemory(this.pHandle, uintPtr, array, (UIntPtr)((ulong)((long)size)), IntPtr.Zero);
 								num2 = BitConverter.ToUInt32(array, 0);
 							}
 							result = uintPtr;
@@ -842,7 +842,7 @@ namespace Beyondmem
 					}
 				}
 			}
-			return HuongDuong.WriteProcessMemory(this.pHandle, code2, array, (UIntPtr)((ulong)((long)num)), IntPtr.Zero);
+			return EXTERNAL_COPORATIONS.WriteProcessMemory(this.pHandle, code2, array, (UIntPtr)((ulong)((long)num)), IntPtr.Zero);
 		}
 		public bool IsAdmin()
 		{
@@ -859,8 +859,8 @@ namespace Beyondmem
 			bool flag = !this.IsAdmin();
 			if (flag)
 			{
-				Debug.WriteLine("Status VN : Thằng ngu Run as administrator lên! Ngu Đéo Chạy Thì Liên Hệ Admin Panel ->  https://www.facebook.com/profile.php?id=100069561654111");
-				notify("Status US : Please run as admin to use the panel! Cannot run under admin, contact admin panel ->  https://www.facebook.com/profile.php?id=100069561654111");
+				Debug.WriteLine("ERROR: Please run as Adminstatus to use the panel");
+				Process.Start("https://discord.gg/phMcUmCTp2");
 			}
 			bool flag2 = pid <= 0;
 			bool result;
@@ -889,7 +889,7 @@ namespace Beyondmem
 						}
 						else
 						{
-							this.pHandle = HuongDuong.OpenProcess(2035711U, true, pid);
+							this.pHandle = EXTERNAL_COPORATIONS.OpenProcess(2035711U, true, pid);
 							Process.EnterDebugMode();
 							bool flag5 = this.pHandle == IntPtr.Zero;
 							if (flag5)
@@ -904,7 +904,7 @@ namespace Beyondmem
 								this.mainModule = this.theProc.MainModule;
 								this.GetModules();
 								bool flag6;
-								this.Is64Bit = (Environment.Is64BitOperatingSystem && HuongDuong.IsWow64Process(this.pHandle, out flag6) && !flag6);
+								this.Is64Bit = (Environment.Is64BitOperatingSystem && EXTERNAL_COPORATIONS.IsWow64Process(this.pHandle, out flag6) && !flag6);
 								string str = "Program is operating at Administrative level. Process #";
 								Process process = this.theProc;
 								Debug.WriteLine(str + ((process != null) ? process.ToString() : null) + " is open and modules are stored.");
@@ -945,19 +945,19 @@ namespace Beyondmem
 		{
 			return this.AoBScan(start, end, search, true, writable, executable, file);
 		}
-		public bool ChangeProtection(string code, HuongDuong.MemoryProtection newProtection, out HuongDuong.MemoryProtection oldProtection, string file = "")
+		public bool ChangeProtection(string code, EXTERNAL_COPORATIONS.MemoryProtection newProtection, out EXTERNAL_COPORATIONS.MemoryProtection oldProtection, string file = "")
 		{
 			UIntPtr code2 = this.GetCode(code, file, 8);
 			bool flag = code2 == UIntPtr.Zero || this.pHandle == IntPtr.Zero;
 			bool result;
 			if (flag)
 			{
-				oldProtection = (HuongDuong.MemoryProtection)0U;
+				oldProtection = (EXTERNAL_COPORATIONS.MemoryProtection)0U;
 				result = false;
 			}
 			else
 			{
-				result = HuongDuong.VirtualProtectEx(this.pHandle, code2, (IntPtr)(this.Is64Bit ? 8 : 4), newProtection, out oldProtection);
+				result = EXTERNAL_COPORATIONS.VirtualProtectEx(this.pHandle, code2, (IntPtr)(this.Is64Bit ? 8 : 4), newProtection, out oldProtection);
 			}
 			return result;
 		}
